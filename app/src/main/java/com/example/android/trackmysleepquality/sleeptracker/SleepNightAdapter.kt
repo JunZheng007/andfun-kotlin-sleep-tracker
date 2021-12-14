@@ -1,6 +1,7 @@
 package com.example.android.trackmysleepquality.sleeptracker
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -9,7 +10,7 @@ import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.TextItemViewHolder
 import com.example.android.trackmysleepquality.database.SleepNight
 
-class SleepNightAdapter: RecyclerView.Adapter<TextItemViewHolder>() {
+class SleepNightAdapter : RecyclerView.Adapter<TextItemViewHolder>() {
     var data = listOf<SleepNight>()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
@@ -27,6 +28,13 @@ class SleepNightAdapter: RecyclerView.Adapter<TextItemViewHolder>() {
     override fun onBindViewHolder(holder: TextItemViewHolder, position: Int) {
         val item = data[position]
         holder.textView.text = item.sleepQuality.toString()
+        if (item.sleepQuality <= 1) {
+            holder.textView.setTextColor(Color.RED)
+        } else if (item.sleepQuality >= 4) {
+            holder.textView.setTextColor(Color.GREEN)
+        } else {
+            holder.textView.setTextColor(Color.BLACK)
+        }
     }
 
     override fun getItemCount(): Int {
