@@ -18,16 +18,18 @@ package com.example.android.trackmysleepquality.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "daily_sleep_quality_table")
-data class SleepNight(
+data class SleepNight @Ignore constructor(
     @PrimaryKey(autoGenerate = true)
-    var nightId: Long = 0L,
+    var nightId: Long,
     @ColumnInfo(name = "start_time_milli")
-    var startTimeMilli: Long = System.currentTimeMillis(),
+    var startTimeMilli: Long,
     @ColumnInfo(name = "end_time_milli")
-    var endTimeMilli: Long = startTimeMilli,
+    var endTimeMilli: Long,
     @ColumnInfo(name = "quality_rating")
-    var sleepQuality: Int = -1
-)
+    var sleepQuality: Int) {
+    constructor() : this(0L, System.currentTimeMillis(), System.currentTimeMillis(), -1)
+}
